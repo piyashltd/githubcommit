@@ -1,6 +1,6 @@
 import os
 import telebot
-from github import Github
+from github import Github, Auth # 1. Auth ইম্পোর্ট করা হয়েছে
 import json
 import re
 from datetime import datetime
@@ -19,7 +19,10 @@ if not BOT_TOKEN or not GITHUB_TOKEN or not REPO_NAME:
 
 # ---------------- INITIALIZATION ----------------
 bot = telebot.TeleBot(BOT_TOKEN)
-g = Github(GITHUB_TOKEN)
+
+# 2. এখানে Deprecation Warning ফিক্স করা হয়েছে
+auth = Auth.Token(GITHUB_TOKEN)
+g = Github(auth=auth)
 
 # ---------------- DATE FORMATTER HELPER ----------------
 def standardize_date(date_str):
